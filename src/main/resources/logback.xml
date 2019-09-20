@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 只需配置好 log.dir 属性 -->
+<configuration debug="false">
+	<property resource="application.properties" />
+	<property name="log.dir" value="${logging.path}" />
+
+	<appender name="CatAppender"
+		class="io.zhongan.xdy4.cat.logback.CatLogbackAppender"></appender>
+
+	<appender name="STDOUT"
+		class="ch.qos.logback.core.ConsoleAppender">
+		<target>System.out</target>
+		<encoder charset="UTF-8"
+			class="io.zhongan.xdy4.common.util.log.LogBackExEncoder">
+			<pattern>[%-5p] [%d] [%thread] [%c] [%F:%L] [%T] [%X] - %msg%n
+			</pattern>
+		</encoder>
+	</appender>
+
+	<appender name="infoAppender"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${log.dir}/all.log</file>
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>INFO</level>
+        </filter>
+		<rollingPolicy
+			class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+			<fileNamePattern>${log.dir}/all_%d{yyyyMMdd}_%i.log</fileNamePattern>
+			<maxFileSize>100MB</maxFileSize>
+			<maxHistory>${max.history}</maxHistory>
+		</rollingPolicy>
+		<encoder charset="UTF-8"
+			class="io.zhongan.xdy4.common.util.log.LogBackExEncoder">
+			<pattern>[%-5p] [%d] [%thread] [%c] [%F:%L] [%T] [%X] - %msg%n
+			</pattern>
+		</encoder>
+	</appender>
+
+	<appender name="errorAppender"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${log.dir}/error.log</file>
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>WARN</level>
+        </filter>
+		<rollingPolicy
+			class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+			<fileNamePattern>${log.dir}/error_%d{yyyyMMdd}_%i.log</fileNamePattern>
+			<maxFileSize>100MB</maxFileSize>
+			<maxHistory>${max.history}</maxHistory>
+		</rollingPolicy>
+		<encoder charset="UTF-8">
+			<pattern>
+				[%-5p] [%d] [%thread] [%c] [%F:%L] [%T] [%X] - %msg%n
+			</pattern>
+		</encoder>
+	</appender>
+
+	<appender name="shardingjdbcAppender"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${log.dir}/shardingjdbc.log</file>
+		<rollingPolicy
+			class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${log.dir}/shardingjdbc-%d{yyyy-MM-dd}.log.zip
+			</fileNamePattern>
+			<maxHistory>${max.history}</maxHistory>
+		</rollingPolicy>
+		<encoder charset="UTF-8"
+			class="io.zhongan.xdy4.common.util.log.LogBackExEncoder">
+			<pattern>[%-5p] [%d] [%thread] [%c] [%F:%L] [%T] [%X] - %msg%n
+			</pattern>
+		</encoder>
+	</appender>
+
+	<appender name="mybatisAppender"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${log.dir}/mybatis.log</file>
+		<rollingPolicy
+			class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${log.dir}/mybatis-%d{yyyy-MM-dd}.log.zip
+			</fileNamePattern>
+			<maxHistory>${max.history}</maxHistory>
+		</rollingPolicy>
+		<encoder charset="UTF-8"
+			class="io.zhongan.xdy4.common.util.log.LogBackExEncoder">
+			<pattern>[%-5p] [%d] [%thread] [%c] [%F:%L] [%T] [%X] - %msg%n
+			</pattern>
+		</encoder>
+	</appender>
+
+	<logger name="com.ctrip.framework.apollo">
+		<level value="INFO" />
+	</logger>
+	<logger name="org.eclipse.jetty">
+		<level value="INFO" />
+	</logger>
+	<logger name="org.apache">
+		<level value="INFO" />
+	</logger>
+	<logger name="org.springframework">
+		<level value="INFO" />
+	</logger>
+	<logger name="Sharding-JDBC-SQL" additivity="false">
+		<level value="INFO" />
+		<appender-ref ref="shardingjdbcAppender" />
+	</logger>
+	<logger name="${mybatis.logger}" additivity="false">
+		<level value="DEBUG" />
+		<appender-ref ref="mybatisAppender" />
+	</logger>
+
+	<root>
+		<level value="${logback.root.level}" />
+		<appender-ref ref="STDOUT" />
+		<appender-ref ref="infoAppender" />
+		<appender-ref ref="CatAppender" />
+	</root>
+</configuration>
