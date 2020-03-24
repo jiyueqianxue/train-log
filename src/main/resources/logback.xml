@@ -11,7 +11,7 @@
 		class="ch.qos.logback.core.ConsoleAppender">
 		<target>System.out</target>
 		<encoder charset="UTF-8"
-			class="io.zhongan.xdy4.common.util.log.LogBackExEncoder">
+			class="io.mine.ft.train.log.LogBackExEncoder">
 			<pattern>[%-5p] [%d] [%thread] [%c] [%F:%L] [%T] [%X] - %msg%n
 			</pattern>
 		</encoder>
@@ -30,7 +30,7 @@
 			<maxHistory>${max.history}</maxHistory>
 		</rollingPolicy>
 		<encoder charset="UTF-8"
-			class="io.zhongan.xdy4.common.util.log.LogBackExEncoder">
+			class="io.mine.ft.train.log.LogBackExEncoder">
 			<pattern>[%-5p] [%d] [%thread] [%c] [%F:%L] [%T] [%X] - %msg%n
 			</pattern>
 		</encoder>
@@ -65,7 +65,7 @@
 			<maxHistory>${max.history}</maxHistory>
 		</rollingPolicy>
 		<encoder charset="UTF-8"
-			class="io.zhongan.xdy4.common.util.log.LogBackExEncoder">
+			class="io.mine.ft.train.log.LogBackExEncoder">
 			<pattern>[%-5p] [%d] [%thread] [%c] [%F:%L] [%T] [%X] - %msg%n
 			</pattern>
 		</encoder>
@@ -81,7 +81,7 @@
 			<maxHistory>${max.history}</maxHistory>
 		</rollingPolicy>
 		<encoder charset="UTF-8"
-			class="io.zhongan.xdy4.common.util.log.LogBackExEncoder">
+			class="io.mine.ft.train.log.LogBackExEncoder">
 			<pattern>[%-5p] [%d] [%thread] [%c] [%F:%L] [%T] [%X] - %msg%n
 			</pattern>
 		</encoder>
